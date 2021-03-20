@@ -32,7 +32,7 @@ namespace PagedAsyncSourceSkipTokenSample {
         }
 
         public async static Task<IssuesFetchResult> GetIssuesAsync(object skipToken, int pageSize, IssueSortOrder sortOrder) {
-            await Task.Delay(300);
+            await Task.Delay(300).ConfigureAwait(false);
             IEnumerable<IssueData> issues = AllIssues.Value;
 
             var createdValue = skipToken != null ? ((SkipToken)skipToken).CreatedValue : default(DateTime?);
