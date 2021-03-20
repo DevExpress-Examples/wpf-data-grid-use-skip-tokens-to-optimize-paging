@@ -8,7 +8,7 @@ Namespace PagedAsyncSourceSkipTokenSample
 	Public Module IssuesService
 		#Region "helpers"
 		Private SyncObject As New Object()
-		Private AllIssues As Lazy(Of IssueData()) = New Lazy(Of IssueData())(Function()
+		Private AllIssues As New Lazy(Of IssueData())(Function()
 			Dim [date] = DateTime.Today
 			Dim rnd = New Random(0)
 			Return Enumerable.Range(0, 100000).Select(Function(i)
@@ -34,10 +34,10 @@ Namespace PagedAsyncSourceSkipTokenSample
 		End Class
 
 		Public Async Function GetIssuesAsync(ByVal skipToken As Object, ByVal pageSize As Integer, ByVal sortOrder As IssueSortOrder) As Task(Of IssuesFetchResult)
-			Await Task.Delay(300)
+			Await Task.Delay(300).ConfigureAwait(False)
 			Dim issues As IEnumerable(Of IssueData) = AllIssues.Value
 
-			Dim createdValue = If(skipToken IsNot Nothing, DirectCast(skipToken, SkipToken).CreatedValue, Nothing)
+			Dim createdValue = If(skipToken IsNot Nothing, DirectCast(skipToken, SkipToken).CreatedValue, CType(Nothing, DateTime?))
 			If sortOrder = IssueSortOrder.CreatedAscending Then
 'INSTANT VB WARNING: VB does not allow comparing non-nullable value types with 'null' - they are never equal to 'null':
 'ORIGINAL LINE: issues = issues.OrderBy(x => x.Created).Where(x => createdValue != null ? x.Created > createdValue : true);
