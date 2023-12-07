@@ -1,6 +1,7 @@
-﻿Namespace PagedAsyncSourceSkipTokenSample
-	Public Enum IssueSortOrder
-		CreatedDescending
-		CreatedAscending
-	End Enum
+Namespace PagedAsyncSourceSkipTokenSample
+
+    Public Enum IssueSortOrder
+        CreatedDescending
+        CreatedAscending
+    End Enum
 End Namespace
